@@ -1,0 +1,13 @@
+<%- include ("../partials/header") %>
+
+<div class="ui huge header centered">Profile page</div>
+<div class="ui centered card">
+    <div class="image">
+        <img src="<%= user.avatar %>" alt="avatar">
+    </div>
+    <div class="content">
+        <p class="center aligned header"><%= user.username %></p>
+    </div>
+</div>
+
+<% include ("../partials/footer") %>

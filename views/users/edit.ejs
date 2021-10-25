@@ -1,0 +1,23 @@
+<%- include ("../partials/header") %>
+
+<div class="ui main text container segment">
+    <div class="ui huge header">Update profile</div>
+    <form class="ui form" action="/users/<%= user_id %>?_method=PUT" method="POST">
+        <div class="field">
+            <label>Username</label>
+            <input type="text" name="username" value="<%= user.username %>" required>
+        </div>
+        <div class="field">
+            <label>Email</label>
+            <input type="email" name="email" value="<%= user.email %>" required>
+        </div>
+        <div class="field">
+            <label>Avatar URL</label>
+            <input type="text" name="avatar" value="<%= user.avatar %>" required>
+        </div>
+        <input class="ui positive button" type="submit" value="Update profile">
+        <a class="ui blue button" href="/users/<%= user_id %>">View profile</a>
+    </form>
+</div>
+
+<% include ("../partials/footer") %>

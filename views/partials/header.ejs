@@ -16,19 +16,28 @@
             </div>
             <a href="/posts" class="item">Home</a>
             <a href="/posts/new" class="item">New post</a>
+
             <div class="right menu">
-                <a href="/login" class="item">Log in</a>
-                <a href="/register" class="item">Sign up</a>
-                <a href="" class="item">Profile</a>
-                <a href="" class="item">Log out</a>
+                <% if (!currentUser) { %>
+                    <a href="/login" class="item">Log in</a>
+                    <a href="/register" class="item">Sign up</a>
+                <% } else { %>
+                    <a href="/users/<%= currentUser.username %>/edit" class="item">Profile</a>
+                    <a href="/logout" class="item">Log out</a>
+                <% } %>
             </div>
         </div>
     </div>
+
     <div class="ui text container main">
-        <div class="ui negative message">
-            <!-- error message will display here -->
-        </div>
-        <div class="ui success message">
-            <!-- success message will dispaly here -->
-        </div>
+        <% if (error && error.length > 0) { %>
+            <div class="ui negative message">
+                <p><%= error %></p>
+            </div>
+        <% } %>
+        <% if (success && success.length > 0) { %>
+            <div class="ui success message">
+                <p><%= success %></p>
+            </div>
+        <% } %>
     </div>
