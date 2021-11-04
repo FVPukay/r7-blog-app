@@ -15,7 +15,7 @@ const express          = require('express'),
       MongoStore       = require('connect-mongo'),
       dbUrl            = process.env.DB_URL || 'mongodb://localhost/r7_blog_app';
 
-mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(dbUrl)
     .then(() => {
         console.log('Connected to DB')
     })
@@ -25,10 +25,6 @@ mongoose.connection.on('error', err => {
     req.flash('error', err.message);
     res.redirect('/posts');
 });
-
-mongoose.set('useNewUrlParser', true);
-mongoose.set('useFindAndModify', false);
-mongoose.set('useCreateIndex', true);
 
 app.use(express.urlencoded({extended: true}));
 app.use(expressSanitizer());
