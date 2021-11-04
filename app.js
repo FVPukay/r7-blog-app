@@ -13,7 +13,7 @@ const express          = require('express'),
       helmet           = require("helmet"),
       session          = require('express-session'),
       MongoStore       = require('connect-mongo'),
-      dbUrl            = 'mongodb://localhost/r7_blog_app';
+      dbUrl            = process.env.DB_URL || 'mongodb://localhost/r7_blog_app';
 
 mongoose.connect(dbUrl)
     .then(() => {
@@ -72,9 +72,11 @@ app.use(
     })
 );
 
+const secret = process.env.MSS || process.env.MSDEVS;
+
 const store = new MongoStore({
     mongoUrl: dbUrl,
-    secret: process.env.MSS,
+    secret,
     touchAfter: 24 * 3600
 });
 
@@ -82,10 +84,12 @@ store.on('error', err => {
     console.log('SESSION STORE ERROR', err.message);
 });
 
+const passportSecret = process.env.PS || process.env.PDEVS;
+
 // Passport configuration
 app.use(session({
     store,
-    secret: process.env.PS,
+    secret: passportSecret,
     resave: false,
     saveUninitialized: false,
 }));
