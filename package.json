@@ -28,7 +28,8 @@
     "semantic-ui": "^2.4.2"
   },
   "engines": {
-    "node": "10.16.2"
+    "node": "10.16.2",
+    "npm": "7.24.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.14"
