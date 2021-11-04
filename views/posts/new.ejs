@@ -5,15 +5,15 @@
     <form class="ui form" action="/posts" method="POST">
         <div class="field">
             <label>Title</label>
-            <input type="text" name="post[title]" placeholder="required" required>
+            <input type="text" name="post[title]" required>
         </div>
         <div class="field">
             <label>Image</label>
-            <input type="text" name="post[image]" placeholder="required" required>
+            <input type="text" name="post[image]" placeholder="image URL must be from unsplash.com" required>
         </div>
         <div class="field">
             <label>Description</label>
-            <textarea name="post[description]" placeholder="required" required></textarea>
+            <textarea name="post[description]" required></textarea>
         </div>
         <input class="ui positive button" type="submit" value="Post">
     </form>

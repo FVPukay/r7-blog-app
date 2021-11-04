@@ -7,7 +7,10 @@ const express          = require('express'),
       flash            = require('connect-flash'),
       passport         = require('passport'),
       localStrategy    = require('passport-local'),
-      User             = require('./models/user');
+      expressSanitizer = require('express-sanitizer'),
+      User             = require('./models/user'),
+      mongoSanitize    = require('express-mongo-sanitize'),
+      helmet = require("helmet");
 
 mongoose.connect('mongodb://localhost/r7_blog_app')
     .then(() => {
@@ -16,11 +19,13 @@ mongoose.connect('mongodb://localhost/r7_blog_app')
     .catch(console.log)
 
 mongoose.connection.on('error', err => {
-    req.flash('error', `${err}`);
+    req.flash('error', err.message);
     res.redirect('/posts');
 });
 
 app.use(express.urlencoded({extended: true}));
+app.use(expressSanitizer());
+app.use(mongoSanitize());
 
 app.set('view engine', 'ejs');
 
@@ -28,6 +33,41 @@ app.use(express.static('semantic'));
 app.use(express.static('public'));
 app.use(methodOverride('_method'));
 app.use(flash());
+app.use(helmet());
+
+const scriptSrcUrls = [
+    'https://code.jquery.com',
+];
+
+const styleSrcUrls = [
+    'https://fonts.googleapis.com',
+];
+
+const fontSrcUrls = [
+    'https://fonts.gstatic.com',
+];
+
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: [],
+            connectSrc: ["'self'"],
+            scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+            styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+            workerSrc: ["'self'", "blob:"],
+            childSrc: ["blob:"],
+            objectSrc: [],
+            imgSrc: [
+                "'self'",
+                "blob:",
+                "data:",
+                "https://images.unsplash.com",
+                "https://media.istockphoto.com",
+            ],
+            fontSrc: ["'self'", "data:", ...fontSrcUrls],
+        },
+    })
+);
 
 // Passport configuration
 app.use(require('express-session')({
@@ -49,15 +89,15 @@ app.use((req, res, next) => {
 
 const indexRoutes   = require('./routes/index'),
       postRoutes    = require('./routes/posts'),
-      userRoutes    = require('./routes/users');
-//       commentRoutes = require('./routes/comments');
+      userRoutes    = require('./routes/users'),
+      commentRoutes = require('./routes/comments');
 
 app.use('/', indexRoutes);
 app.use('/posts', postRoutes);
 app.use('/users', userRoutes);
-// app.use('/posts/:id/comments', commentRoutes);
+app.use('/posts/:id/comments', commentRoutes);
 
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
     req.flash('error', 'Error: You have been redirected');
     res.status(404).redirect('/posts');
 });

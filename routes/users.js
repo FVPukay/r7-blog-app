@@ -8,7 +8,7 @@ const async = require('async');
 router.get('/:id', (req, res) => {
     User.findById(req.params.id, (err, foundUser) => {
         if (err) {
-            req.flash('error', 'Something went wrong');
+            req.flash('error', err.message);
             res.redirect('/posts');
         }
         res.render('users/show', {user: foundUser});

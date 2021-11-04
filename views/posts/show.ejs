@@ -1,0 +1,75 @@
+<%- include ("../partials/header") %>
+
+<div class="ui main text container segment">
+    <div class="ui huge header"><%= post.title %></div>
+    <div class="ui top attached">
+        <div class="author">
+            <p>Submitted by <a href="/users/<%= post.author.id %>"><%- post.author.username %></a></p>
+        </div>
+        <br>
+        <div class="item">
+            <p><%= post.createdOn.toDateString() %></p>
+        </div>
+        <br>
+        <div class="item">
+            <img class="ui centered rounded image" src="<%= post.image %>" alt="post image">
+        </div>
+        <br>
+        <div style="padding-bottom: 10px; float: left;">
+            <form action="/posts/<%= post._id %>/like" method="POST">
+                <div>
+                    <% if (currentUser && post.likes.some(like => { %>
+                        <% return like.equals(currentUser._id) %>
+                    <% })) { %>
+                        <button class="ui primary button">
+                            <i class="thumbs up icon"></i> Like
+                        </button>
+                        <span class="ui basic large left pointing label"><%= post.likes.length %></span>
+                    <% } else { %>
+                        <button class="ui button">
+                            <i class="thumbs up icon"></i> Like
+                        </button>
+                        <span class="ui basic large left pointing label"><%= post.likes.length %></span>
+                    <% } %>
+                </div>
+            </form>
+        </div>
+        <br>
+        <br>
+        <div class="description">
+            <p><%- post.description %></p>
+        </div>
+        <br>
+        <a class="ui positive button" href="/posts/<%= post._id %>/edit">Edit</a>
+        <form class="delete" action="/posts/<%= post._id %>?_method=DELETE" method="POST">
+            <button class="ui red button">Delete</button>
+        </form>
+        <br>
+        <br>
+        <hr>
+        <br>
+        <a class="positive ui button" href="/posts/<%= post._id %>/comments/new">Add comment</a>
+        <br>
+        <br>
+        <% post.comments.forEach(comment => { %>
+            <div class="ui text segment">
+                <div class="item">
+                    <p><a href="/users/<%= comment.author.id %>"><%- comment.author.username %></a></p>
+                </div>
+                <div class="item">
+                    <p><%= comment.createdOn.toLocaleString() %></p>
+                </div>
+                <div class="description">
+                    <p><%= comment.text %></p>
+                </div>
+                <br>
+                <a class="ui small positive button" href="/posts/<%= post._id %>/comments/<%= comment._id %>/edit">Edit</a>
+                <form class="delete" action="/posts/<%= post._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                    <button class="ui small red button">Delete</button>
+                </form>
+            </div>
+        <% }); %>
+    </div>
+</div>
+
+<% include ("../partials/footer") %>

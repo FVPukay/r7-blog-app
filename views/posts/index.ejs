@@ -1,3 +1,45 @@
 <%- include ("../partials/header") %>
 
+<div class="ui main text container">
+    <div class="ui top attached segment">
+        <div class="ui divided items">
+
+            <% if (noMatch) { %>
+                <p><%= noMatch %></p>
+            <% } %>
+
+            <% posts.slice().reverse().forEach(post => { %>
+                <div class="item">
+                    <div class="image">
+                        <img src="<%= post.image %>" alt="post image">
+                    </div>
+                    <div class="content">
+                        <h1 class="ui header"><%= post.title %></h1>
+                        <p>Submitted by <a href="/users/<%= post.author.id %>"><%- post.author.username %></a></p>
+
+                        <div class="meta">
+                            <span><%= post.createdOn.toDateString() %></span>
+                        </div>
+
+                        <div class="description">
+                            <% if (post.description.substring(0, 100).length === 100) { %>
+                                <p><%- post.description.substring(0, 100) %>...</p>
+                            <% } else { %>
+                                <p><%- post.description.substring(0, 100) %></p>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+
+                <a class="ui bottom attached basic positive button" href="/posts/<%= post.id %>">
+                    Read more
+                    <i class="chevron circle right icon"></i>
+                </a>
+            
+            <% }); %>
+
+        </div>
+    </div>
+</div>
+
 <% include ("../partials/footer") %>

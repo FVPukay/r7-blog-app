@@ -1,0 +1,14 @@
+<%- include ("../partials/header") %>
+
+<div class="ui main text container segment">
+    <div class="ui huge header">New comment</div>
+    <form class="ui form" action="/posts/<%= post._id %>/comments" method="POST">
+        <div class="field">
+            <label>Text</label>
+            <input type="text" name="comment[text]" placeholder="required" required>
+        </div>
+        <input class="ui positive button" type="submit">
+    </form>
+</div>
+
+<% include ("../partials/footer") %>
