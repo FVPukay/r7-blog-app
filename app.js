@@ -10,9 +10,12 @@ const express          = require('express'),
       expressSanitizer = require('express-sanitizer'),
       User             = require('./models/user'),
       mongoSanitize    = require('express-mongo-sanitize'),
-      helmet = require("helmet");
+      helmet           = require("helmet"),
+      session          = require('express-session'),
+      MongoStore       = require('connect-mongo'),
+      dbUrl            = 'mongodb://localhost/r7_blog_app';
 
-mongoose.connect('mongodb://localhost/r7_blog_app')
+mongoose.connect(dbUrl)
     .then(() => {
         console.log('Connected to DB')
     })
@@ -69,8 +72,19 @@ app.use(
     })
 );
 
+const store = new MongoStore({
+    mongoUrl: dbUrl,
+    secret: process.env.MSS,
+    touchAfter: 24 * 3600
+});
+
+store.on('error', err => {
+    console.log('SESSION STORE ERROR', err.message);
+});
+
 // Passport configuration
-app.use(require('express-session')({
+app.use(session({
+    store,
     secret: process.env.PS,
     resave: false,
     saveUninitialized: false,
