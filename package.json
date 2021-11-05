@@ -5,11 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "preinstall": "npx --userconfig .npmrc npm-force-resolutions"
-  },
-  "resolutions": {
-    "graceful-fs": "^4.2.4"
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -23,7 +19,6 @@
     "express-mongo-sanitize": "^2.1.0",
     "express-sanitizer": "^1.0.6",
     "express-session": "^1.17.2",
-    "gulp": "^3.9.1",
     "helmet": "^4.6.0",
     "method-override": "^3.0.0",
     "mongoose": "^6.0.12",
