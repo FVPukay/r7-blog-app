@@ -19,6 +19,7 @@
     "express-mongo-sanitize": "^2.1.0",
     "express-sanitizer": "^1.0.6",
     "express-session": "^1.17.2",
+    "gulp": "^4.0.2",
     "helmet": "^4.6.0",
     "method-override": "^3.0.0",
     "mongoose": "^6.0.12",
@@ -28,8 +29,8 @@
     "semantic-ui": "^2.4.2"
   },
   "engines": {
-    "node": "10.16.2",
-    "npm": "6.9.0"
+    "node": "16.13.0",
+    "npm": "8.1.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.14"
