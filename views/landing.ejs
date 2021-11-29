@@ -12,8 +12,25 @@
      <div id="landing-header">
          <div class="ui huge header center">RESTful 7 Blog</div>
          <a class="positive ui button" href="/posts">Start Blogging!</a>
+         <br>
+         <br>
+         <div class="ui large sequenced images">
+            <img src="images/signUp.png" class="ui wireframe image transition visible" style="display: inline-block !important;">
+            <img src="images/newPost.png" class="ui wireframe image transition visible" style="display: inline-block !important;">
+            <img src="images/allPosts.png" class="ui wireframe image transition visible" style="display: inline-block !important;">
+        </div>
      </div>
      <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
      <script src="/dist/semantic.min.js"></script>
+     <script>
+         setTimeout(() => {
+            $('.sequenced.images .image')
+                .transition({
+                    animation : 'pulse',
+                    duration  : 800,
+                    interval  : 1000
+                });
+        }, 1000);
+     </script>
 </body>
 </html>
