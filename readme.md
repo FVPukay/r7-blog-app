@@ -26,4 +26,6 @@
         * [express-mongo-sanitize](https://www.npmjs.com/package/express-mongo-sanitize) - Sanitizes user-supplied data to prevent MongoDB Operator Injection
         * [express-sanitizer](https://www.npmjs.com/package/express-sanitizer) - sanitizes certain tags e.g. script and anchor
         * Setup admin user who can edit or delete any post
-        
+
+## View the RESTful 7 Blog App
+* See [these images](https://www.flickr.com/photos/156561177@N03/albums/72177720303451082)       
