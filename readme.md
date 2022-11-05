@@ -25,4 +25,5 @@
         * [Helmet](https://helmetjs.github.io/) - Secures Express apps by setting various HTTP headers
         * [express-mongo-sanitize](https://www.npmjs.com/package/express-mongo-sanitize) - Sanitizes user-supplied data to prevent MongoDB Operator Injection
         * [express-sanitizer](https://www.npmjs.com/package/express-sanitizer) - sanitizes certain tags e.g. script and anchor
+        * Setup admin user who can edit or delete any post
         
